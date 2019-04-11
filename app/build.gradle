@@ -74,7 +74,7 @@ android {
 
             // ng serve ...
             // must replace <APP_SERVER_IP> here manually
-            buildConfigField "String", "NG_URL", '"http://47.187.51.45:4200"'
+            buildConfigField "String", "NG_URL", '"http://34.201.81.109:4200"'
 
             //====================================
         }
