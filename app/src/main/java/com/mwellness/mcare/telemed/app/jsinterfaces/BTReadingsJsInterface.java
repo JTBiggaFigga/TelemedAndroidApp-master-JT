@@ -24,6 +24,9 @@ import com.mwellness.mcare.telemed.bootstrap.utils.GsonUtils;
 import com.mwellness.mcare.telemed.storage.roomdb.VitalsRecord;
 import com.mwellness.mcare.telemed.storage.roomdb.VitalsRecordDao;
 import com.mwellness.mcare.telemed.storage.roomdb.VitalsSqliteDatabase;
+import com.mwellness.mcare.telemed.storage.roomdb.EMSRecord;
+import com.mwellness.mcare.telemed.storage.roomdb.EMSRecordDao;
+import com.mwellness.mcare.telemed.storage.roomdb.EMSSqliteDatabase;
 import com.mwellness.mcare.telemed.vitals.BtDeviceInfo;
 import com.mwellness.mcare.telemed.vitals.Vitals;
 import com.mwellness.mcare.telemed.vitals.bluetooth.ble.CancellableGatt;
@@ -909,7 +912,19 @@ public class BTReadingsJsInterface {
         dao.insertVital(vitalsRecord);
     }
 
+    public void saveEMSReadings(final int EMSType, final String v1, final String v2, final String v3, final long timestamp) {
 
+        AMainPreferences prefs = AMainPreferences.getInstance();
+        final String userId = prefs.getString(AMainPreferences.PREF_KEY_AUTH0_USER_ID);
+        final String username = prefs.getString(AMainPreferences.PREF_KEY_EMAIL);
+
+        EMSRecord emsRecord = new EMSRecord(userId, username,
+                EMSType, v1, v2, v3, timestamp);
+
+        log("Saving EMS records ... " + GsonUtils.getInstance().toJson(emsRecord));
+        EMSRecordDao dao2 = EMSSqliteDatabase.getInstance(AMainApp.getAppContext()).dao2();
+        dao2.insertVital(emsRecord);
+    }
 
 
     private static long testEcgStartedAt = -1;

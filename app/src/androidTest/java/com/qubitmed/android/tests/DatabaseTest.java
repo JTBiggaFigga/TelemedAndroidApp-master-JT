@@ -8,6 +8,8 @@ import android.test.suitebuilder.annotation.SmallTest;
 import com.mwellness.mcare.telemed.app.ALog;
 import com.mwellness.mcare.telemed.storage.roomdb.VitalsRecord;
 import com.mwellness.mcare.telemed.storage.roomdb.VitalsSqliteDatabase;
+import com.mwellness.mcare.telemed.storage.roomdb.EMSRecord;
+import com.mwellness.mcare.telemed.storage.roomdb.EMSSqliteDatabase;
 import com.mwellness.mcare.telemed.vitals.Vitals;
 
 import org.junit.After;

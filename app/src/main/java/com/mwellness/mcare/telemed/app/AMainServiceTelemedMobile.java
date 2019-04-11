@@ -21,6 +21,9 @@ import com.mwellness.mcare.telemed.bootstrap.utils.GsonUtils;
 import com.mwellness.mcare.telemed.storage.roomdb.VitalsRecord;
 import com.mwellness.mcare.telemed.storage.roomdb.VitalsRecordDao;
 import com.mwellness.mcare.telemed.storage.roomdb.VitalsSqliteDatabase;
+import com.mwellness.mcare.telemed.storage.roomdb.EMSRecord;
+import com.mwellness.mcare.telemed.storage.roomdb.EMSRecordDao;
+import com.mwellness.mcare.telemed.storage.roomdb.EMSSqliteDatabase;
 import com.mwellness.mcare.telemed.vitals.Vitals;
 
 import java.io.IOException;
@@ -382,5 +385,27 @@ public class AMainServiceTelemedMobile extends Service {
         dao.insertVital(new VitalsRecord(userId, email, Vitals.VITAL_TYPE_SPO2, "99", "73", "", System.currentTimeMillis() - (1000*i)));
     }
 
+    private void createDummyEMSRecords() {
 
+        final String userId = AMainPreferences.getInstance().getString(AMainPreferences.PREF_KEY_AUTH0_USER_ID);
+        final String email = AMainPreferences.getInstance().getString(AMainPreferences.PREF_KEY_EMAIL);
+
+
+        EMSRecordDao dao2 = EMSSqliteDatabase.getInstance(AMainApp.getAppContext()).dao2();
+
+        int i = 5;
+        dao2.insertVital(new EMSRecord(userId, email, Vitals.VITAL_TYPE_SPO2, "98", "72", "", System.currentTimeMillis() - (1000*i)));
+
+        i--;
+        dao2.insertVital(new EMSRecord(userId, email, Vitals.VITAL_TYPE_SPO2, "98", "71", "", System.currentTimeMillis() - (1000*i)));
+
+        i--;
+        dao2.insertVital(new EMSRecord(userId, email, Vitals.VITAL_TYPE_SPO2, "99", "70", "", System.currentTimeMillis() - (1000*i)));
+
+        i--;
+        dao2.insertVital(new EMSRecord(userId, email, Vitals.VITAL_TYPE_SPO2, "99", "74", "", System.currentTimeMillis() - (1000*i)));
+
+        i--;
+        dao2.insertVital(new EMSRecord(userId, email, Vitals.VITAL_TYPE_SPO2, "99", "73", "", System.currentTimeMillis() - (1000*i)));
+    }
 }

@@ -19,6 +19,8 @@ import com.mwellness.mcare.telemed.app.jsinterfaces.AMainPreferences;
 import com.mwellness.mcare.telemed.bootstrap.utils.GsonUtils;
 import com.mwellness.mcare.telemed.storage.roomdb.VitalsRecordDao;
 import com.mwellness.mcare.telemed.storage.roomdb.VitalsSqliteDatabase;
+import com.mwellness.mcare.telemed.storage.roomdb.EMSRecordDao;
+import com.mwellness.mcare.telemed.storage.roomdb.EMSSqliteDatabase;
 
 
 /**
@@ -70,6 +72,9 @@ public class AMainApp extends Application {
                 VitalsRecordDao dao = VitalsSqliteDatabase.getInstance(AMainApp.getAppContext()).dao();
                 dao.deleteAllSynchronizedVitals();
 
+                log("Deleting all synchronized EMS records");
+                EMSRecordDao dao2 = EMSSqliteDatabase.getInstance(AMainApp.getAppContext()).dao2();
+                dao2.deleteAllSynchronizedEMS();
             }
         }).start();
 
@@ -219,9 +224,12 @@ public class AMainApp extends Application {
 
         log("onTerminate()");
 
-        // close database for vitals if open
+        // close database for vitals or EMS if open
         if(VitalsSqliteDatabase.getInstance(this).isOpen())
             VitalsSqliteDatabase.getInstance(this).close();
+
+        if(EMSSqliteDatabase.getInstance(this).isOpen())
+            EMSSqliteDatabase.getInstance(this).close();
 
 
     }
